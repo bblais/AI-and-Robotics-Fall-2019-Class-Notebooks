@@ -149,6 +149,35 @@ def minimax_move(state,player):
 minimax_agent=Agent(minimax_move)
 
 
+# In[12]:
+
+
+state=Board(3,3)
+state[0]=1
+state[1]=2
+state[3]=1
+state[5]=2
+state
+
+
+# In[14]:
+
+
+state.show_locations()
+
+
+# In[13]:
+
+
+minimax_values(state,1)
+
+
+# In[ ]:
+
+
+
+
+
 # Running the Game
 
 # In[12]:
@@ -164,6 +193,53 @@ g.run(random_agent,minimax_agent)
 g=Game(number_of_games=10)
 g.display=False
 g.run(random_agent,minimax_agent)
+
+
+# In[15]:
+
+
+state=initial_state()
+state
+
+
+# In[16]:
+
+
+minimax_values(state,1)
+
+
+# In[22]:
+
+
+state=initial_state()
+state[0]=1
+state[1]=2
+state
+
+
+# In[23]:
+
+
+values,moves=minimax_values(state,1)
+values,moves
+
+
+# In[19]:
+
+
+state=Board(4,5)
+
+
+# In[20]:
+
+
+state.index_from_rc(3,4)
+
+
+# In[21]:
+
+
+state.rc_from_index(13)
 
 
 # In[ ]:
