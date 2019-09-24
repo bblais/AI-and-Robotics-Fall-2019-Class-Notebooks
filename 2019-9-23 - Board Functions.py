@@ -110,6 +110,77 @@ def initial_state(N=6):
 initial_state()
 
 
+# In[1]:
+
+
+def cool_function(bob,sally):
+    
+    value=bob+sally
+    
+    return value
+
+
+# In[2]:
+
+
+cool_function(9,8)
+
+
+# In[3]:
+
+
+a=cool_function(9,8)
+
+
+# In[4]:
+
+
+a
+
+
+# In[5]:
+
+
+from math import sin
+
+
+# In[6]:
+
+
+y=sin(3.1415)
+
+
+# In[7]:
+
+
+y
+
+
+# In[8]:
+
+
+def quadratic(x,a,b,c):
+    return a*x*x + b*x + c
+
+
+# In[9]:
+
+
+y=quadratic(5.6,2,6,8)
+
+
+# In[10]:
+
+
+y
+
+
+# In[11]:
+
+
+# maxdepth example with heuristic 
+
+
 # In[ ]:
 
 

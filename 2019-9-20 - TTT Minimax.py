@@ -3,7 +3,7 @@
 
 # ## TTT (Tic Tac Toe) Minimal Implementation
 
-# In[1]:
+# In[23]:
 
 
 from Game import *
@@ -12,15 +12,60 @@ from Game.minimax import *
 
 # Functions for the Game
 
-# In[2]:
+# In[24]:
 
 
 def initial_state():
     state=Board(3,3)
+    #state.pieces=['.','X','O']
+    
+    for i in range(9):
+        state[i]=1
+        
     return state
 
 
-# In[3]:
+# In[25]:
+
+
+state=initial_state()
+state
+
+
+# In[26]:
+
+
+state=Board(3,3)
+state
+
+
+# In[27]:
+
+
+state.pieces=['.','X','O']
+
+
+# In[28]:
+
+
+state
+
+
+# In[29]:
+
+
+state[5]=1
+state[6]=2
+state
+
+
+# In[30]:
+
+
+print(state)
+
+
+# In[31]:
 
 
 def update_state(state,player,move):
@@ -29,7 +74,7 @@ def update_state(state,player,move):
     return new_state
 
 
-# In[4]:
+# In[32]:
 
 
 def win_status(state,player):
@@ -72,7 +117,7 @@ def win_status(state,player):
     
 
 
-# In[5]:
+# In[33]:
 
 
 def valid_moves(state,player):
@@ -85,7 +130,7 @@ def valid_moves(state,player):
     return moves
 
 
-# In[6]:
+# In[34]:
 
 
 def show_state(state):
@@ -98,7 +143,7 @@ def show_state(state):
 
 # Move Functions for the Agents
 
-# In[7]:
+# In[35]:
 
 
 def random_move(state,player):
@@ -106,7 +151,7 @@ def random_move(state,player):
     return random.choice(moves)
 
 
-# In[8]:
+# In[36]:
 
 
 def get_human_move(state,player):
@@ -130,14 +175,14 @@ def get_human_move(state,player):
     return move
 
 
-# In[9]:
+# In[37]:
 
 
 human_agent=Agent(get_human_move)
 random_agent=Agent(random_move)
 
 
-# In[10]:
+# In[41]:
 
 
 def minimax_move(state,player):
@@ -149,33 +194,43 @@ def minimax_move(state,player):
 minimax_agent=Agent(minimax_move)
 
 
-# In[12]:
+# In[43]:
 
 
-state=Board(3,3)
-state[0]=1
-state[1]=2
-state[3]=1
-state[5]=2
-state
+def minimax_move(state,player):
+
+    values,moves=minimax_values(state,player,maxdepth=2)
+    return top_choice(moves,values)
+
+def heuristic(state,player):
+    
+    if player==1:
+        other_player=2
+    else:
+        other_player=1
+        
+    value=0.0
+    if state[4]==player:
+        value=value+0.2
+        
+    if state[4]==other_player:
+        value=value-0.2
+        
+    return value
+
+minimax_agent=Agent(minimax_move)
 
 
-# In[14]:
-
-
-state.show_locations()
-
-
-# In[13]:
+# In[42]:
 
 
 minimax_values(state,1)
 
 
-# In[ ]:
+# In[45]:
 
 
-
+minimax_values(state,1,maxdepth=3)
 
 
 # Running the Game
