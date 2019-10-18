@@ -113,7 +113,6 @@ def skittles_move(state,player,info):
     last_state=info.last_state
     last_action=info.last_action
 
-    
     if not state in S:  # if we haven't seen this state before
         S[state]=Table()
         for action in valid_moves(state,player):
@@ -130,14 +129,9 @@ def skittles_move(state,player,info):
             if S[last_state][last_action]<0:
                 S[last_state][last_action]=0
             
-        
         return random_move(state,player)
     
-    
     return move
-
-
-skittles_agent=Agent(skittles_move)
 
 
 # In[13]:
@@ -153,15 +147,12 @@ def skittles_after(status,player,info):
         if S[last_state][last_action]<0:
             S[last_state][last_action]=0
             
-    
-
-    
-    
 
 
 # In[28]:
 
 
+skittles_agent=Agent(skittles_move)
 skittles_agent.S=Table()
 skittles_agent.post=skittles_after
 SaveTable(skittles_agent.S,'skittles_start_table.json')
@@ -190,6 +181,30 @@ SaveTable(skittles_agent.S,'skittles_after_table.json')
 
 
 skittles_agent.S
+
+
+# ## how fast does it improve?
+
+# In[41]:
+
+
+skittles_agent=Agent(skittles_move)
+skittles_agent.S=Table()  # start from scratch
+skittles_agent.post=skittles_after
+
+
+# In[42]:
+
+
+games_per_step=10
+total_games=0
+for i in range(30):
+    g=Game(number_of_games=games_per_step)
+    g.display=False
+    result=g.run(random_agent,skittles_agent)
+    total_games+=games_per_step
+    
+    print(sum([1 for _ in result if _==2])/len(result)*100," for ",total_games," games.")
 
 
 # In[ ]:
