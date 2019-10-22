@@ -1,71 +1,30 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## TTT (Tic Tac Toe) Minimal Implementation
+# ## TTT (Tic Tac Toe) Skittles
 
-# In[23]:
+# In[1]:
 
 
+get_ipython().run_line_magic('pylab', 'inline')
 from Game import *
 from Game.minimax import *
 
 
 # Functions for the Game
 
-# In[24]:
+# In[2]:
 
 
 def initial_state():
     state=Board(3,3)
-    #state.pieces=['.','X','O']
+    state.pieces=['.','X','O']
     
-    for i in range(9):
-        state[i]=1
         
     return state
 
 
-# In[25]:
-
-
-state=initial_state()
-state
-
-
-# In[26]:
-
-
-state=Board(3,3)
-state
-
-
-# In[27]:
-
-
-state.pieces=['.','X','O']
-
-
-# In[28]:
-
-
-state
-
-
-# In[29]:
-
-
-state[5]=1
-state[6]=2
-state
-
-
-# In[30]:
-
-
-print(state)
-
-
-# In[31]:
+# In[3]:
 
 
 def update_state(state,player,move):
@@ -74,7 +33,7 @@ def update_state(state,player,move):
     return new_state
 
 
-# In[32]:
+# In[4]:
 
 
 def win_status(state,player):
@@ -117,7 +76,7 @@ def win_status(state,player):
     
 
 
-# In[33]:
+# In[5]:
 
 
 def valid_moves(state,player):
@@ -130,7 +89,7 @@ def valid_moves(state,player):
     return moves
 
 
-# In[34]:
+# In[6]:
 
 
 def show_state(state):
@@ -143,7 +102,7 @@ def show_state(state):
 
 # Move Functions for the Agents
 
-# In[35]:
+# In[7]:
 
 
 def random_move(state,player):
@@ -151,7 +110,7 @@ def random_move(state,player):
     return random.choice(moves)
 
 
-# In[36]:
+# In[8]:
 
 
 def get_human_move(state,player):
@@ -175,14 +134,14 @@ def get_human_move(state,player):
     return move
 
 
-# In[37]:
+# In[9]:
 
 
 human_agent=Agent(get_human_move)
 random_agent=Agent(random_move)
 
 
-# In[41]:
+# In[10]:
 
 
 def minimax_move(state,player):
@@ -194,107 +153,198 @@ def minimax_move(state,player):
 minimax_agent=Agent(minimax_move)
 
 
-# In[43]:
+# In[11]:
 
 
-def minimax_move(state,player):
+def skittles_move(state,player,info):
 
-    values,moves=minimax_values(state,player,maxdepth=2)
-    return top_choice(moves,values)
+    S=info.S
+    last_state=info.last_state
+    last_action=info.last_action
 
-def heuristic(state,player):
+    if not state in S:  # if we haven't seen this state before
+        S[state]=Table()
+        for action in valid_moves(state,player):
+            S[state][action]=2
+       
+    move=weighted_choice(S[state])
     
-    if player==1:
-        other_player=2
-    else:
-        other_player=1
+    # if there are no weights at all for a state, then the move will be None
+    
+    if move is None:
         
-    value=0.0
-    if state[4]==player:
-        value=value+0.2
-        
-    if state[4]==other_player:
-        value=value-0.2
-        
-    return value
+        if last_state:
+            S[last_state][last_action]-=1
+            if S[last_state][last_action]<0:
+                S[last_state][last_action]=0
+            
+        return random_move(state,player)
+    
+    return move
 
-minimax_agent=Agent(minimax_move)
-
-
-# In[42]:
-
-
-minimax_values(state,1)
-
-
-# In[45]:
-
-
-minimax_values(state,1,maxdepth=3)
-
-
-# Running the Game
 
 # In[12]:
 
 
-g=Game()
-g.run(random_agent,minimax_agent)
+def skittles_after(status,player,info):
+    S=info.S
+    last_state=info.last_state
+    last_action=info.last_action
+    
+    if status=='lose':
+        S[last_state][last_action]-=1
+        if S[last_state][last_action]<0:
+            S[last_state][last_action]=0
+            
 
 
 # In[13]:
 
 
-g=Game(number_of_games=10)
-g.display=False
-g.run(random_agent,minimax_agent)
+skittles_agent1=Agent(skittles_move)
+skittles_agent1.S=LoadTable("TTT Skittles 1.json")
+skittles_agent1.post=skittles_after
+
+
+skittles_agent2=Agent(skittles_move)
+skittles_agent2.S=LoadTable("TTT Skittles 2.json")
+skittles_agent2.post=skittles_after
+
+
+# ### Running the Game - Random vs Skittles 2
+
+# In[14]:
+
+
+W=[]
+L=[]
+T=[]
+
+n=[]
+total_games=0
+for i in range(100):
+    g=Game(number_of_games=1000)
+    g.display=False
+    result=g.run(random_agent,skittles_agent2)
+
+    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
+
+    percent_wins=sum([_==1 for _ in result])/len(result)*100
+    percent_losses=sum([_==2 for _ in result])/len(result)*100
+    percent_ties=sum([_==0 for _ in result])/len(result)*100
+
+    total_games+=g.number_of_games
+    n.append(total_games)
+    W.append(percent_wins)
+    L.append(percent_losses)
+    T.append(percent_ties)
+    print('%.2f' % percent_wins," ",end="")
 
 
 # In[15]:
 
 
-state=initial_state()
-state
+figure(figsize=(10,8))
+plot(n,W,'-o',label='Player 1 Win')
+plot(n,L,'-o',label='Player 1 Losses')
+plot(n,T,'-o',label='Ties')
+legend()
 
 
-# In[16]:
+# ### Running the Game - naive Skittles 1 vs trained Skittles 2
+
+# In[18]:
 
 
-minimax_values(state,1)
+W=[]
+L=[]
+T=[]
 
+n=[]
+total_games=0
+for i in range(100):
+    g=Game(number_of_games=1000)
+    g.display=False
+    result=g.run(skittles_agent1,skittles_agent2)
 
-# In[22]:
+    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
 
+    percent_wins=sum([_==1 for _ in result])/len(result)*100
+    percent_losses=sum([_==2 for _ in result])/len(result)*100
+    percent_ties=sum([_==0 for _ in result])/len(result)*100
 
-state=initial_state()
-state[0]=1
-state[1]=2
-state
-
-
-# In[23]:
-
-
-values,moves=minimax_values(state,1)
-values,moves
+    total_games+=g.number_of_games
+    n.append(total_games)
+    W.append(percent_wins)
+    L.append(percent_losses)
+    T.append(percent_ties)
+    print('%.2f' % percent_wins," ",end="")
 
 
 # In[19]:
 
 
-state=Board(4,5)
+figure(figsize=(10,8))
+plot(n,W,'-o',label='Player 1 Win')
+plot(n,L,'-o',label='Player 1 Losses')
+plot(n,T,'-o',label='Ties')
+legend()
 
+
+# ### Running the Game - naive Skittles 1 vs naive Skittles 2
 
 # In[20]:
 
 
-state.index_from_rc(3,4)
+skittles_agent1=Agent(skittles_move)
+skittles_agent1.S=Table()            # start with a blank table
+skittles_agent1.post=skittles_after
+
+
+skittles_agent2=Agent(skittles_move)
+skittles_agent2.S=Table()            # start with a blank table
+skittles_agent2.post=skittles_after
 
 
 # In[21]:
 
 
-state.rc_from_index(13)
+W=[]
+L=[]
+T=[]
+
+n=[]
+total_games=0
+for i in range(100):
+    g=Game(number_of_games=1000)
+    g.display=False
+    result=g.run(skittles_agent1,skittles_agent2)
+
+    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
+
+    percent_wins=sum([_==1 for _ in result])/len(result)*100
+    percent_losses=sum([_==2 for _ in result])/len(result)*100
+    percent_ties=sum([_==0 for _ in result])/len(result)*100
+
+    total_games+=g.number_of_games
+    n.append(total_games)
+    W.append(percent_wins)
+    L.append(percent_losses)
+    T.append(percent_ties)
+    print('%.2f' % percent_wins," ",end="")
+
+
+# In[22]:
+
+
+figure(figsize=(10,8))
+plot(n,W,'-o',label='Player 1 Win')
+plot(n,L,'-o',label='Player 1 Losses')
+plot(n,T,'-o',label='Ties')
+legend()
 
 
 # In[ ]:
