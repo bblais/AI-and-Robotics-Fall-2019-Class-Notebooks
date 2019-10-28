@@ -185,6 +185,59 @@ def skittles_move(state,player,info):
     return move
 
 
+# In[1]:
+
+
+from Game import *
+
+
+# In[8]:
+
+
+b=Board(4,4)
+b[2]=1
+b[4]=2
+b
+
+
+# In[9]:
+
+
+T=Table()
+T[b]=5
+
+
+# In[10]:
+
+
+T
+
+
+# In[11]:
+
+
+T=Table()
+T[int(b)]=7
+
+
+# In[12]:
+
+
+T
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
 # In[12]:
 
 
