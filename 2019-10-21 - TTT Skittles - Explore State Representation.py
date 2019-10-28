@@ -162,21 +162,23 @@ def skittles_move(state,player,info):
     last_state=info.last_state
     last_action=info.last_action
 
-    if not state in S:  # if we haven't seen this state before
-        S[state]=Table()
+    stateint=int(state) # use only when accessing table
+    if not stateint in S:  # if we haven't seen this state before
+        S[stateint]=Table()
         for action in valid_moves(state,player):
-            S[state][action]=2
+            S[stateint][action]=2
        
-    move=weighted_choice(S[state])
+    move=weighted_choice(S[stateint])
     
     # if there are no weights at all for a state, then the move will be None
     
     if move is None:
         
         if last_state:
-            S[last_state][last_action]-=1
-            if S[last_state][last_action]<0:
-                S[last_state][last_action]=0
+            last_stateint=int(last_state)
+            S[last_stateint][last_action]-=1
+            if S[last_stateint][last_action]<0:
+                S[last_stateint][last_action]=0
             
         return random_move(state,player)
     
@@ -192,9 +194,10 @@ def skittles_after(status,player,info):
     last_action=info.last_action
     
     if status=='lose':
-        S[last_state][last_action]-=1
-        if S[last_state][last_action]<0:
-            S[last_state][last_action]=0
+        last_stateint=int(last_state)
+        S[last_stateint][last_action]-=1
+        if S[last_stateint][last_action]<0:
+            S[last_stateint][last_action]=0
             
 
 
@@ -202,12 +205,12 @@ def skittles_after(status,player,info):
 
 
 skittles_agent1=Agent(skittles_move)
-skittles_agent1.S=LoadTable("TTT Skittles 1.json")
+skittles_agent1.S=LoadTable("TTT Skittles 1 Int.json")
 skittles_agent1.post=skittles_after
 
 
 skittles_agent2=Agent(skittles_move)
-skittles_agent2.S=LoadTable("TTT Skittles 2.json")
+skittles_agent2.S=LoadTable("TTT Skittles 2 Int.json")
 skittles_agent2.post=skittles_after
 
 
@@ -227,8 +230,8 @@ for i in range(100):
     g.display=False
     result=g.run(random_agent,skittles_agent2)
 
-    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
-    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
+    SaveTable(skittles_agent1.S,"TTT Skittles 1 Int.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2 Int.json")
 
     percent_wins=sum([_==1 for _ in result])/len(result)*100
     percent_losses=sum([_==2 for _ in result])/len(result)*100
@@ -284,8 +287,8 @@ for i in range(100):
     g.display=False
     result=g.run(skittles_agent1,skittles_agent2)
 
-    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
-    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
+    SaveTable(skittles_agent1.S,"TTT Skittles 1 Int.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2 Int.json")
 
     percent_wins=sum([_==1 for _ in result])/len(result)*100
     percent_losses=sum([_==2 for _ in result])/len(result)*100
@@ -338,8 +341,8 @@ for i in range(100):
     g.display=False
     result=g.run(skittles_agent1,skittles_agent2)
 
-    SaveTable(skittles_agent1.S,"TTT Skittles 1.json")
-    SaveTable(skittles_agent2.S,"TTT Skittles 2.json")
+    SaveTable(skittles_agent1.S,"TTT Skittles 1 Int.json")
+    SaveTable(skittles_agent2.S,"TTT Skittles 2 Int.json")
 
     percent_wins=sum([_==1 for _ in result])/len(result)*100
     percent_losses=sum([_==2 for _ in result])/len(result)*100
@@ -363,7 +366,13 @@ plot(n,T,'-o',label='Ties')
 legend()
 
 
-# In[23]:
+# In[ ]:
+
+
+
+
+
+# In[25]:
 
 
 import pickle
