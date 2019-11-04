@@ -7,13 +7,13 @@
 from Game import *
 
 
-# In[2]:
+# In[5]:
 
 
 b=Board(4,4)
 
 
-# In[14]:
+# In[6]:
 
 
 def read_state():
@@ -31,7 +31,7 @@ def read_state():
     return b
 
 
-# In[15]:
+# In[8]:
 
 
 state=read_state()

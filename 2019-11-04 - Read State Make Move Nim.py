@@ -14,14 +14,14 @@ from robotsim import *
 from Game import *
 
 
-# In[3]:
+# In[25]:
 
 
 environment=Env('sim_images/5.png')
 distance_sensor,color_sensor=Sensors("us","color",None,None,environment)
 
 
-# In[4]:
+# In[26]:
 
 
 left,right=Motors("ab",environment)
@@ -37,7 +37,9 @@ environment.draw()
 # In[5]:
 
 
-closest_color(1,1,1,white=[1,1,1],red=[0.5921568870544434, 0.2666666805744171, 0.21568627655506134])
+closest_color(1,1,1,
+              white=[1,1,1],
+              red=[0.5921568870544434, 0.2666666805744171, 0.21568627655506134])
 
 
 # In[6]:
@@ -399,10 +401,10 @@ def make_move(move):
     
 
 
-# In[23]:
+# In[24]:
 
 
-environment=Env('sim_images/7.png')
+environment=Env('sim_images/4.png')
 distance_sensor,color_sensor=Sensors("us","color",None,None,environment)
 left,right=Motors("ab",environment)
 
