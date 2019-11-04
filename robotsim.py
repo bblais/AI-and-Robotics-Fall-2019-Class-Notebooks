@@ -51,21 +51,25 @@ def closest_color(r,g,b,**kwargs):
     return min_color
 
 class Timer(object):
-    def __init__(self):
+    def __init__(self,environment):
         self._reset()
+        self.env=environment
 
     def _reset(self):
         self.t0=time.time()
 
     @property
     def time(self):
+        self.env.update()
         return time.time()-self.t0
 
     @property
     def value(self):
+        self.env.update()
         return time.time()-self.t0
 
     def seconds(self):
+        self.env.update()
         return time.time()-self.t0    
 
 
@@ -241,6 +245,7 @@ class Env(object):
             dx=self.max_bot_speed*self.motors[0].power/100.0*dt
             
             self.botpos[0]+=dx
+            self.botpos[1]+=self.drift
             #print("dx=",dx,"dt",dt,"power",self.motors[0].power)
             if self.botpos[0]<0:
                 self.botpos[0]=0
@@ -265,8 +270,9 @@ class Env(object):
         self.update_record()
         
     def reset(self):
-        self.botpos=[50.0,self.image.shape[0]/2.0]
+        self.botpos=[50.0,self.image.shape[0]/3.0]
         self.botspeed=0
+        self.drift=0.15
         self.start_time=time.time()
         self.last_time=time.time()
         self.last_record_time=time.time()
