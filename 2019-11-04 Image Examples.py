@@ -1,32 +1,32 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[2]:
+# In[5]:
 
 
 arr=imread('images/bird.jpg')
 
 
-# In[16]:
+# In[6]:
 
 
 imshow(arr)
 
 
-# In[27]:
+# In[7]:
 
 
 imshow(arr[75,:,:].T)
 ax=gca()
 
 
-# In[54]:
+# In[8]:
 
 
 row=65
@@ -36,7 +36,7 @@ plot(blue,'b+-')
 plot(green,'gs-')
 
 
-# In[55]:
+# In[9]:
 
 
 colors=[]
@@ -52,7 +52,7 @@ plot(colors,'o-')
 gca().set_yticks([0,1,2])
 
 
-# In[59]:
+# In[10]:
 
 
 where(colors==0)[0][0]
@@ -70,7 +70,7 @@ where(colors==0)[0][0]
 
 
 
-# In[35]:
+# In[17]:
 
 
 def closest_color_as_number(r,g,b,*args):
@@ -93,22 +93,22 @@ def closest_color_as_number(r,g,b,*args):
     return min_color
 
 def closest_color_image(arr,*args):
-    arr=arr.copy()
+    arr2=ones(arr.shape[:2])
     R,G,B=arr[:,:,0],arr[:,:,1],arr[:,:,2]
-    L=len(arr.ravel())
+    L=len(arr[:,:,0].ravel())
     R=R.ravel()
     B=B.ravel()
     G=G.ravel()
     
-    for i in L:
+    for i in range(L):
         r,g,b=R[i],G[i],B[i]
         c=closest_color_as_number(r,g,b,*args)
-        arr.ravel()[i]=c
+        arr2.ravel()[i]=c
         
-    return arr
+    return arr2
 
 
-# In[43]:
+# In[18]:
 
 
 colors={0:'black',1:'white',2:'brown'}
@@ -125,19 +125,20 @@ print(num,colors[num])
 
 
 
-# In[40]:
+# In[21]:
 
 
-closest_color_image(arr[75:76,:,:],
+arr2=closest_color_image(arr,
                    [50,100,150],
                    [20,20,20],
                    [150,200,175])
 
 
-# In[38]:
+# In[23]:
 
 
-arr[75,:,:].shape
+imshow(arr2)
+colorbar()
 
 
 # In[4]:
