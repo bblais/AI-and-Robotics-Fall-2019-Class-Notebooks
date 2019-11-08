@@ -21,13 +21,13 @@ ylabel('that')
 
 
 
-# In[11]:
+# In[2]:
 
 
 arr=imread('images/test9.jpg')
 
 
-# In[12]:
+# In[3]:
 
 
 imshow(arr)
@@ -145,13 +145,14 @@ subplot(1,2,2)
 imshow(arr)
 
 
-# In[37]:
+# In[5]:
 
 
 figure(figsize=(16,8))
 red=arr[:,:,0]
 subplot(1,2,1)
-imshow(red,cmap=cm.gray)
+#imshow(red,cmap=cm.gray)
+imshow(red)
 colorbar()
 
 subplot(1,2,2)

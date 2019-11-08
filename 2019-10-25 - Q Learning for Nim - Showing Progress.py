@@ -143,7 +143,7 @@ Q_agent.Q
 
 # While learning, set epsilon to 0.1
 
-# In[8]:
+# In[7]:
 
 
 Q_agent.epsilon=0.1
@@ -155,7 +155,7 @@ SaveTable(Q_agent.Q,'Q_data.json')
 g.report()
 
 
-# In[9]:
+# In[8]:
 
 
 Q_agent.Q
@@ -163,7 +163,7 @@ Q_agent.Q
 
 # When we want to see how good it really is, turn off epsilon (no random moves)
 
-# In[10]:
+# In[9]:
 
 
 Q_agent.epsilon=0.0
@@ -177,7 +177,7 @@ g.report()
 
 # ## Can a Q-agent play against another?
 
-# In[21]:
+# In[10]:
 
 
 Q1_agent=Agent(Q_move)
@@ -197,7 +197,7 @@ Q2_agent.gamma=0.9  # memory
 Q2_agent.epsilon=0.1  # chance of making a random move
 
 
-# In[13]:
+# In[11]:
 
 
 Q1_agent.epsilon=0.1
@@ -211,7 +211,7 @@ SaveTable(Q2_agent.Q,'Q2_data.json')
 g.report()
 
 
-# In[14]:
+# In[12]:
 
 
 Q1_agent.epsilon=0.0
@@ -225,7 +225,7 @@ g.run(Q1_agent,perfect_agent)
 g.report()
 
 
-# In[15]:
+# In[13]:
 
 
 Q1_agent.epsilon=0.0
@@ -239,7 +239,7 @@ g.run(perfect_agent,Q2_agent)
 g.report()
 
 
-# In[22]:
+# In[14]:
 
 
 W=[]
@@ -281,13 +281,13 @@ for i in range(100):
     print('%.2f' % percent_wins," ",end="")
 
 
-# In[23]:
+# In[15]:
 
 
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[24]:
+# In[16]:
 
 
 figure(figsize=(10,8))
