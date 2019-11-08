@@ -7,7 +7,7 @@
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[10]:
+# In[2]:
 
 
 plot(rand(100))
@@ -21,22 +21,69 @@ ylabel('that')
 
 
 
-# In[2]:
+# In[3]:
 
 
 arr=imread('images/test9.jpg')
 
 
-# In[3]:
+# In[4]:
 
 
 imshow(arr)
 
 
-# In[4]:
+# In[5]:
 
 
 arr.shape
+
+
+# In[6]:
+
+
+def get_square(arr,r,c):
+    
+    width=70
+    height=70
+    
+    left_side=45
+    top_side=30
+    
+    square=arr[(left_side+width*r):(left_side+width*(r+1)),(top_side+height*c):(top_side+height*(c+1)),:]
+    return square
+                                                                               
+                                                                               
+
+
+# In[8]:
+
+
+imshow(get_square(arr,1,1))
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[13]:
