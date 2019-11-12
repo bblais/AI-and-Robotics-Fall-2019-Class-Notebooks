@@ -13,7 +13,7 @@ get_ipython().run_line_magic('matplotlib', 'tk')
 from pylab import *
 
 
-# In[5]:
+# In[3]:
 
 
 def onkey(event):
@@ -34,7 +34,7 @@ def onclick(event):
     
     ix, iy = event.xdata, event.ydata
     global coords
-    coords = [ix, iy]
+    coords = [int(ix), int(iy)]
 
     locations.append(coords)
     
@@ -61,7 +61,7 @@ def get_square_locations(filefilter):
     
 
 
-# In[6]:
+# In[4]:
 
 
 get_square_locations('/Users/bblais/Desktop/ai373/images/board images/*.jpg')
