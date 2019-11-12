@@ -39,7 +39,7 @@ imshow(arr)
 arr.shape
 
 
-# In[6]:
+# In[1]:
 
 
 def get_square(arr,r,c):
@@ -50,7 +50,7 @@ def get_square(arr,r,c):
     left_side=45
     top_side=30
     
-    square=arr[(left_side+width*r):(left_side+width*(r+1)),(top_side+height*c):(top_side+height*(c+1)),:]
+    square=arr[(top_side+height*c):(top_side+height*(c+1)),(left_side+width*r):(left_side+width*(r+1)),:]
     return square
                                                                                
                                                                                
