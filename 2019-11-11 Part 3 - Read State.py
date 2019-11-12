@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 # use this in a notebook, not on the robot
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[3]:
+# In[2]:
 
 
 # use this on the robot
 # from pylab import *   
 
 
-# In[6]:
+# In[3]:
 
 
 from Game import *
 from classy import *
 
 
-# In[7]:
+# In[4]:
 
 
 # get rid of this for the robot, because it has it's own take_picture function
@@ -32,7 +32,7 @@ def take_picture(filename='picture.jpg',view=False):
     print("Took picture ",filename)
 
 
-# In[19]:
+# In[5]:
 
 
 def get_square(arr,index,shape,locations=None):
@@ -59,7 +59,7 @@ def get_square(arr,index,shape,locations=None):
 
 # ### train classifier
 
-# In[41]:
+# In[6]:
 
 
 images=image.load_images('/Users/bblais/Desktop/ai373/images/board images/squares')
@@ -72,13 +72,13 @@ classifier.fit(data_train.vectors,data_train.targets)
 print("Training time: ",timeit())
 
 
-# In[42]:
+# In[7]:
 
 
 data_train.shape
 
 
-# In[43]:
+# In[8]:
 
 
 def read_state_from_file(filename='current_board.txt'):
@@ -134,10 +134,11 @@ def read_state():
     print("Using")
     print(state)
     
+    return state
         
 
 
-# In[45]:
+# In[9]:
 
 
 state=read_state()

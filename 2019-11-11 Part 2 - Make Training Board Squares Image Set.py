@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[36]:
+# In[2]:
 
 
 def make_training_squares(filefilter,shape,locations=None):
@@ -62,7 +62,7 @@ def make_training_squares(filefilter,shape,locations=None):
             imsave(newdirname+"/"+newfname,square)
 
 
-# In[37]:
+# In[3]:
 
 
 make_training_squares('/Users/bblais/Desktop/ai373/images/board images/*.jpg',(40,40))
