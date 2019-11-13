@@ -1,38 +1,71 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[5]:
 
 
 # use this in a notebook, not on the robot
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[2]:
+# In[6]:
 
 
 # use this on the robot
 # from pylab import *   
 
 
-# In[3]:
+# In[7]:
 
 
 from Game import *
 from classy import *
 
 
-# In[4]:
+# In[8]:
+
+
+def copyfile(src,dst):
+    import platform,os
+    s=platform.system()
+    if s=="Windows":
+        copy_command="copy /y"
+        src=src.replace('/','\\')
+        dst=dst.replace('/','\\')
+    else:
+        copy_command="cp -f"
+        
+    cmd=copy_command+" "+src+" "+dst
+    print(cmd)
+    os.system(cmd)
+
+
+# In[ ]:
+
+
+
+
+
+# In[9]:
 
 
 # get rid of this for the robot, because it has it's own take_picture function
 def take_picture(filename='picture.jpg',view=False):
-    import shutil
-    shutil.copyfile('/Users/bblais/Desktop/ai373/images/board images/test9.jpg',filename)
+    copyfile('/Users/bblais/Desktop/ai373/images/board images/test9.jpg',filename)
     print("Took picture ",filename)
+    
+def take_picture(filename='picture.jpg',view=False):  # takes the newest one in the list
+    # replace this function with one that actually takes a picture
+    from glob import glob
+    import os
+    fnames=glob('/Users/bblais/Desktop/ai373/images/board images/*.jpg')
+    newest = max(fnames, key=os.path.getctime)
+
+    copyfile(newest,filename)
+    print("Took picture ",filename)    
 
 
-# In[5]:
+# In[10]:
 
 
 def get_square(arr,index,shape,locations=None):
@@ -59,7 +92,7 @@ def get_square(arr,index,shape,locations=None):
 
 # ### train classifier
 
-# In[6]:
+# In[11]:
 
 
 images=image.load_images('/Users/bblais/Desktop/ai373/images/board images/squares')
@@ -72,13 +105,13 @@ classifier.fit(data_train.vectors,data_train.targets)
 print("Training time: ",timeit())
 
 
-# In[7]:
+# In[12]:
 
 
 data_train.shape
 
 
-# In[8]:
+# In[13]:
 
 
 def read_state_from_file(filename='current_board.txt'):
@@ -138,7 +171,7 @@ def read_state():
         
 
 
-# In[9]:
+# In[14]:
 
 
 state=read_state()

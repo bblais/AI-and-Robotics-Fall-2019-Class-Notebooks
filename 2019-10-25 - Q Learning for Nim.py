@@ -106,6 +106,8 @@ def Q_post(status,player,info):
         r=-1.0
     elif status=='win':
         r=1.0
+    elif status=='stalemate':
+        r=0.5
     else:
         r=0.0
         
