@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[5]:
+# In[1]:
 
 
 # use this in a notebook, not on the robot
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[6]:
+# In[2]:
 
 
 # use this on the robot
 # from pylab import *   
 
 
-# In[7]:
+# In[3]:
 
 
 from Game import *
 from classy import *
 
 
-# In[8]:
+# In[4]:
 
 
 def copyfile(src,dst):
@@ -46,7 +46,7 @@ def copyfile(src,dst):
 
 
 
-# In[9]:
+# In[5]:
 
 
 # get rid of this for the robot, because it has it's own take_picture function
@@ -54,18 +54,18 @@ def take_picture(filename='picture.jpg',view=False):
     copyfile('/Users/bblais/Desktop/ai373/images/board images/test9.jpg',filename)
     print("Took picture ",filename)
     
-def take_picture(filename='picture.jpg',view=False):  # takes the newest one in the list
-    # replace this function with one that actually takes a picture
-    from glob import glob
-    import os
-    fnames=glob('/Users/bblais/Desktop/ai373/images/board images/*.jpg')
-    newest = max(fnames, key=os.path.getctime)
+# def take_picture(filename='picture.jpg',view=False):  # takes the newest one in the list
+#     # replace this function with one that actually takes a picture
+#     from glob import glob
+#     import os
+#     fnames=glob('/Users/bblais/Desktop/ai373/images/board images/*.jpg')
+#     newest = max(fnames, key=os.path.getctime)
 
-    copyfile(newest,filename)
-    print("Took picture ",filename)    
+#     copyfile(newest,filename)
+#     print("Took picture ",filename)    
 
 
-# In[10]:
+# In[11]:
 
 
 def get_square(arr,index,shape,locations=None):
@@ -75,7 +75,12 @@ def get_square(arr,index,shape,locations=None):
         with open('locations.json') as json_file:
             locations = json.load(json_file)        
     
-    location=locations[index]
+    try:
+        location=locations[index]
+    except IndexError:
+        print("locations.json file probably corrupt.")
+        raise 
+        
     c,r=location
     c1=int(c-shape[1]/2)
     c2=int(c+shape[1]/2)
@@ -92,7 +97,7 @@ def get_square(arr,index,shape,locations=None):
 
 # ### train classifier
 
-# In[11]:
+# In[12]:
 
 
 images=image.load_images('/Users/bblais/Desktop/ai373/images/board images/squares')
@@ -105,13 +110,13 @@ classifier.fit(data_train.vectors,data_train.targets)
 print("Training time: ",timeit())
 
 
-# In[12]:
+# In[13]:
 
 
 data_train.shape
 
 
-# In[13]:
+# In[14]:
 
 
 def read_state_from_file(filename='current_board.txt'):
@@ -171,7 +176,7 @@ def read_state():
         
 
 
-# In[14]:
+# In[15]:
 
 
 state=read_state()

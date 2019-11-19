@@ -32,7 +32,14 @@ while True:
     else:
         S=LoadTable("TTT Skittles 2.json")
 
-    move=weighted_choice(S[state])
+    if state in S:
+        move=weighted_choice(S[state])
+    else:
+        print("Never saw this before!")
+        show_state(state)
+        print("Choosing random move")
+        move=random_move(state,player)
+
 
     make_move(move)  # act in the world
 

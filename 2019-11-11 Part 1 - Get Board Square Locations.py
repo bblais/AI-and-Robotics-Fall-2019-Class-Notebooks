@@ -67,7 +67,7 @@ def get_square_locations(filefilter):
     
 
 
-# In[5]:
+# In[4]:
 
 
 get_square_locations('/Users/bblais/Desktop/ai373/images/board images/*.jpg')

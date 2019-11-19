@@ -67,9 +67,3 @@ def make_training_squares(filefilter,shape,locations=None):
 
 make_training_squares('/Users/bblais/Desktop/ai373/images/board images/*.jpg',(40,40))
 
-
-# In[ ]:
-
-
-
-
