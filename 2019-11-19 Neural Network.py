@@ -23,7 +23,7 @@ from classy import *
 data=load_excel('/Users/bblais/Desktop/ai373/data/iris.xls',verbose=True)
 
 
-# In[4]:
+# In[5]:
 
 
 data
@@ -55,19 +55,19 @@ plot2D(subset,legend_location='upper left')
 
 # ## Classification
 
-# In[48]:
+# In[8]:
 
 
 C=Perceptron()
 
 
-# In[49]:
+# In[9]:
 
 
-data_train,data_test=split(subset,test_size=0.2)
+data_train,data_test=split(data,test_size=0.2)
 
 
-# In[50]:
+# In[10]:
 
 
 timeit(reset=True)
@@ -75,14 +75,14 @@ C.fit(data_train.vectors,data_train.targets)
 print("Training time: ",timeit())
 
 
-# In[51]:
+# In[11]:
 
 
 print("On Training Set:",C.percent_correct(data_train.vectors,data_train.targets))
 print("On Test Set:",C.percent_correct(data_test.vectors,data_test.targets))
 
 
-# In[52]:
+# In[12]:
 
 
 C.weights
@@ -124,13 +124,13 @@ dot(X,C.weights.T)+C.biases
 plot2D(data_train,C)
 
 
-# In[75]:
+# In[13]:
 
 
 C=BackProp(max_iter=6000)
 
 
-# In[76]:
+# In[14]:
 
 
 timeit(reset=True)
@@ -138,14 +138,14 @@ C.fit(data_train.vectors,data_train.targets)
 print("Training time: ",timeit())
 
 
-# In[77]:
+# In[15]:
 
 
 print("On Training Set:",C.percent_correct(data_train.vectors,data_train.targets))
 print("On Test Set:",C.percent_correct(data_test.vectors,data_test.targets))
 
 
-# In[81]:
+# In[16]:
 
 
 plot2D(data_train,C,number_of_grid_points=300)
