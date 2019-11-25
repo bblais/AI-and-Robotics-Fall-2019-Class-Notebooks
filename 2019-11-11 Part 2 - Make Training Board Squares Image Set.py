@@ -55,6 +55,9 @@ def make_training_squares(filefilter,shape,locations=None):
             c2=c2+(shape[1]-(c2-c1))
             r2=r2+(shape[0]-(r2-r1))
 
+            if (r2>arr.shape[0]) or (r1<0) or (c2>arr.shape[1]) or (c1<0):
+                raise IndexError('Square size out of bounds of image.')
+            
             square=arr[r1:r2,c1:c2,:]
             
             newfname=base+"_%d" %(i) + ext
