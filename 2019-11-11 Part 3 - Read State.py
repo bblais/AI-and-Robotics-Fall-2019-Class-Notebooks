@@ -1,28 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[6]:
 
 
 # use this in a notebook, not on the robot
 get_ipython().run_line_magic('pylab', 'inline')
 
 
-# In[2]:
+# In[7]:
 
 
 # use this on the robot
 # from pylab import *   
 
 
-# In[3]:
+# In[8]:
 
 
 from Game import *
 from classy import *
 
 
-# In[4]:
+# In[9]:
 
 
 def copyfile(src,dst):
@@ -40,13 +40,13 @@ def copyfile(src,dst):
     os.system(cmd)
 
 
-# In[ ]:
+# In[10]:
 
 
+get_ipython().run_line_magic('pinfo', 'image')
 
 
-
-# In[5]:
+# In[11]:
 
 
 # get rid of this for the robot, because it has it's own take_picture function
@@ -65,7 +65,7 @@ def take_picture(filename='picture.jpg',view=False):
 #     print("Took picture ",filename)    
 
 
-# In[11]:
+# In[12]:
 
 
 def get_square(arr,index,shape,locations=None):
@@ -97,12 +97,12 @@ def get_square(arr,index,shape,locations=None):
 
 # ### train classifier
 
-# In[12]:
+# In[15]:
 
 
 images=image.load_images('/Users/bblais/Desktop/ai373/images/board images/squares')
 shape=images.data[0].shape[:2]
-data_train=data=image.images_to_vectors(images)  # train on all of them
+data_train=data=image.images_to_vectors(images,verbose=True)  # train on all of them
 
 classifier=kNearestNeighbor()
 timeit(reset=True)
@@ -137,6 +137,9 @@ def read_state():
     
     take_picture('current_board.jpg')
     arr=imread('current_board.jpg')
+    
+    
+    
     
     # get predictions
     shape=data_train.shape[:2]

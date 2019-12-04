@@ -255,6 +255,8 @@ for i in range(100):
     # train with learning
     Q1_agent.epsilon=0.1
     Q2_agent.epsilon=0.1
+    Q1_agent.alpha=0.3
+    Q2_agent.alpha=0.3
 
     g=Game(number_of_games=1000)
     g.display=False
@@ -266,6 +268,8 @@ for i in range(100):
     # test with no learning
     Q1_agent.epsilon=0.0
     Q2_agent.epsilon=0.0
+    Q1_agent.alpha=0.0
+    Q2_agent.alpha=0.0
     
     g=Game(number_of_games=200)
     g.display=False
