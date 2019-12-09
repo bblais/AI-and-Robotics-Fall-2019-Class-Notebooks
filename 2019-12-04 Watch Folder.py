@@ -89,6 +89,8 @@ def small_fname(fname):
     return rest
 
 
+# ## this part on the laptop
+
 # In[28]:
 
 
@@ -96,6 +98,8 @@ for fname in watch_folder('/Users/bblais/tmp'):
     print("Do something with ",fname)
     cp(fname,'/Users/bblais/Desktop/%s' % small_fname(fname))
 
+
+# ## this part can be on the robot
 
 # In[29]:
 
