@@ -70,7 +70,7 @@ for fname in watch_folder('/Users/bblais/tmp'):
 
 
 def scp(fname1,fname2):
-    cmd='scp "%s" "%s"' % (fname1,fname2)
+    cmd='pscp -pw robots1234 "pi@10.2.2.23:%s" "%s"' % (fname1,fname2)
     print(cmd)
     os.system(cmd)
     
