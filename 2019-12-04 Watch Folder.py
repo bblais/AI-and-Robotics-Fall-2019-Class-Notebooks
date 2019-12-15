@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[20]:
+# In[1]:
 
 
 def watch_folder(path='.',delay=1,
@@ -59,18 +59,18 @@ def watch_folder(path='.',delay=1,
         print("done.")
 
 
-# In[21]:
+# In[2]:
 
 
 for fname in watch_folder('/Users/bblais/tmp'):
     print("Do something with ",fname)
 
 
-# In[26]:
+# In[3]:
 
 
 def scp(fname1,fname2):
-    cmd='pscp -pw robots1234 "pi@10.2.2.23:%s" "%s"' % (fname1,fname2)
+    cmd='pscp "%s" "pi@10.2.2.23:%s" -pw robots1234' % (fname1,fname2)
     print(cmd)
     os.system(cmd)
     
@@ -118,6 +118,23 @@ def take_picture_from_folder(folder_name='.',
 
 
 take_picture_from_folder('/Users/bblais/tmp','/Users/bblais/Desktop/current_board.jpg')
+
+
+# In[6]:
+
+
+def fact(N):
+    s=1
+    for i in range(1,N+1):
+        s=s*i
+        
+    return s
+
+
+# In[13]:
+
+
+fact(20000)
 
 
 # In[ ]:
